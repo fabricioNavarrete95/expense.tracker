@@ -1,4 +1,5 @@
 import React from 'react'
+import api from '../store/api'
 
 const labels = [
   {
@@ -19,6 +20,9 @@ const labels = [
 ]
 
 export default function Labels() {
+  const { data, isFetching, isLoading, isSuccess, isError } =
+    api.useGetCategoriesQuery()
+  console.log(data)
   return (
     <>
       {labels.map((label, idx) => (
