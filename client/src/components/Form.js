@@ -1,11 +1,25 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import List from './List'
+import api from '../store/api'
 
 export default function Form() {
-  const { register, resetField, handleSubmit } = useForm()
-  const onSubmit = (data) => {
-    console.log(data)
+  const { register, handleSubmit, resetField } = useForm()
+  const [addTransaction] = api.useAddTransactionMutation()
+  const onSubmit = async (data) => {
+    try {
+      if (!data) return {}
+      await addTransaction(data).unwrap()
+    } catch (error) {
+      if (error.data) {
+        alert(error.data.message)
+        return
+      }
+      console.error(error)
+    } finally {
+      resetField('name')
+      resetField('amount')
+    }
   }
   return (
     <div className="form max-w-sm mx-auto w-96">
@@ -21,11 +35,11 @@ export default function Form() {
             />
           </div>
           <select className="form-input" {...register('type')}>
-            <option value="investment" defaultValue>
+            <option value="Inversion" defaultValue>
               Inversión
             </option>
-            <option value="expense">Gasto</option>
-            <option value="saving">Ahorro</option>
+            <option value="Gasto">Gasto</option>
+            <option value="Ahorros">Ahorros</option>
           </select>
           <div className="input-group">
             <input
