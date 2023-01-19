@@ -8,7 +8,7 @@ const transactionSchema = new Schema(
     },
     type: {
       type: String,
-      default: 'expense',
+      default: 'Gasto',
     },
     color: {
       type: String,
