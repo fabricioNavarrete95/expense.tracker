@@ -104,7 +104,7 @@ async function getLabels(req, res) {
         Object.assign(
           {},
           {
-            _id: v.id,
+            _id: v._id,
             name: v.name,
             type: v.type,
             amount: v.amount,
